@@ -37,15 +37,9 @@ spec:
         - containerPort: 8000
         volumeMounts:
         - name: auth-server-config-volume
-          mountPath: /app/mount/config
-          readOnly: true
-        - name: auth-server-secrets-volume
-          mountPath: /app/mount/secrets
+          mountPath: /app/config
           readOnly: true
       volumes:
       - name: auth-server-config-volume
-        configMap:
-          name: auth-server-config
-      - name: auth-server-secrets-volume
         secret:
-          secretName: auth-server-secrets
+          secretName: auth-server-config

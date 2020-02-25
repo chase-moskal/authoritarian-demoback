@@ -36,9 +36,9 @@ spec:
         ports:
         - containerPort: 8001
         volumeMounts:
-          - name: profile-server-config-volume
-            mountPath: /app/mount/config
+        - name: profile-server-config-volume
+          mountPath: /app/config
       volumes:
       - name: profile-server-config-volume
-        configMap:
-          name: profile-server-config
+        secret:
+          secretName: profile-server-config
