@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# set auth server config and secrets
+
+kubectl create configmap auth-server-config \
+	--from-file=mount/auth-server/config/config.json
+
+kubectl create secret generic auth-server-secrets \
+	--from-file=mount/auth-server/secrets/auth-server.private.pem \
+	--from-file=mount/auth-server/secrets/auth-server.public.pem
+
+# set profile server config and secrets
+
+kubectl create configmap profile-server-config \
+	--from-file=mount/profile-server/config/config.json \
+	--from-file=mount/profile-server/config/auth-server.public.pem
+
+# deploy everything
+kubectl apply -f kubernetes

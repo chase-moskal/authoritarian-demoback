@@ -1,0 +1,51 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-server-service
+spec:
+  type: LoadBalancer
+  ports:
+  - name: auth-server
+    port: 8000
+    targetPort: 8000
+    protocol: TCP
+  selector:
+    app: auth-server
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth-server
+  template:
+    metadata:
+      labels:
+        app: auth-server
+    spec:
+      containers:
+      - image: chasemoskal/auth-server:latest
+        imagePullPolicy: IfNotPresent
+        name: auth-server
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: auth-server-config-volume
+          mountPath: /app/mount/config
+          readOnly: true
+        - name: auth-server-secrets-volume
+          mountPath: /app/mount/secrets
+          readOnly: true
+      volumes:
+      - name: auth-server-config-volume
+        configMap:
+          name: auth-server-config
+      - name: auth-server-secrets-volume
+        secret:
+          secretName: auth-server-secrets

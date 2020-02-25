@@ -1,0 +1,10 @@
+{
+	"server": {
+		"port": 8001
+	},
+	"database": {
+		"uri": "mongodb+srv://admin:admin@devcluster-g4uwh.mongodb.net/test?retryWrites=true&w=majority",
+		"dbName": "profiler",
+		"collectionName": "profiles"
+	}
+}
