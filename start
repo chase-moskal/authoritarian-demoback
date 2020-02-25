@@ -1,20 +1,12 @@
 #!/usr/bin/env bash
 
-# set auth server config and secrets
-
-# kubectl create configmap auth-server-config \
-# 	--from-file=mount-dev/auth-server/config/config.json
-
 kubectl create secret generic auth-server-config \
 	--from-file=config-dev/auth-server/config.json \
 	--from-file=config-dev/auth-server/auth-server.private.pem \
 	--from-file=config-dev/auth-server/auth-server.public.pem
 
-# set profile server config and secrets
-
 kubectl create secret generic profile-server-config \
 	--from-file=config-dev/profile-server/config.json \
 	--from-file=config-dev/profile-server/auth-server.public.pem
 
-# deploy everything
 kubectl apply -f kubernetes
