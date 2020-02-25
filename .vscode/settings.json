@@ -6,25 +6,6 @@
 	"files.encoding": "utf8",
 	"files.insertFinalNewline": true,
 
-	"files.exclude": {
-		"dist": false,
-		"coverage": true,
-		"node_modules": true,
-		"*.log*": true
-	},
-
-	"search.exclude": {
-		"dist": true
-	},
-
-	"files.watcherExclude": {
-		"dist*/**": true,
-		"source-a*/**": true,
-		"**/.git/objects/**": true,
-		"**/.git/subtree-cache/**": true,
-		"**/node_modules/*/**": true,
-	},
-
 	"[yaml]": {
 		"editor.tabSize": 2,
 		"editor.insertSpaces": true
