@@ -2,44 +2,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: profile-server
+  name: profile
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
-      app: profile-server
+      app: profile
   template:
     metadata:
       labels:
-        app: profile-server
+        app: profile
     spec:
       containers:
       - image: chasemoskal/profile-server:latest
         imagePullPolicy: IfNotPresent
-        name: profile-server
+        name: profile
         ports:
         - containerPort: 8001
         volumeMounts:
-        - name: profile-server-config-volume
+        - name: profile-config-volume
           mountPath: /app/config
           readOnly: true
       volumes:
-      - name: profile-server-config-volume
+      - name: profile-config-volume
         secret:
-          secretName: profile-server-config
+          secretName: profile-config
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: profile-server
+  name: profile
 spec:
-  type: NodePort
   selector:
-    app: profile-server
+    app: profile
   ports:
-  - name: profile-server
+  - name: profile
+    protocol: TCP
     port: 8001
     targetPort: 8001
-    protocol: TCP

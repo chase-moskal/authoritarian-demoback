@@ -2,45 +2,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-server
+  name: auth
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
-      app: auth-server
+      app: auth
   template:
     metadata:
       labels:
-        app: auth-server
+        app: auth
     spec:
       containers:
       - image: chasemoskal/auth-server:latest
         imagePullPolicy: IfNotPresent
-        name: auth-server
+        name: auth
         ports:
         - containerPort: 8000
         volumeMounts:
-        - name: auth-server-config-volume
+        - name: auth-config-volume
           mountPath: /app/config
           readOnly: true
       volumes:
-      - name: auth-server-config-volume
+      - name: auth-config-volume
         secret:
-          secretName: auth-server-config
+          secretName: auth-config
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-server
+  name: auth
 spec:
-  type: NodePort
   selector:
-    app: auth-server
+    app: auth
   ports:
-  - name: auth-server
+  - name: auth
+    protocol: TCP
     port: 8000
     targetPort: 8000
-    protocol: TCP
-  

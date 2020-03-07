@@ -5,15 +5,15 @@ metadata:
   name: ingress
 spec:
   rules:
-  - host: auth-server.demoback.chasemoskal.com
+  - host: auth.workback.chasemoskal.com
     http:
       paths:
       - backend:
-          serviceName: auth-server
+          serviceName: auth
           servicePort: 8000
-  - host: profile-server.demoback.chasemoskal.com
+  - host: profile.workback.chasemoskal.com
     http:
       paths:
       - backend:
-          serviceName: profile-server
+          serviceName: profile
           servicePort: 8001
