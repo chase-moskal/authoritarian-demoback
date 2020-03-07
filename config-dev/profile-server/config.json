@@ -1,6 +1,13 @@
 {
 	"server": {
-		"port": 8001
+		"port": 8001,
+		"cors": {
+			"allowed": {
+				"pattern": "^http:\/\/(demo|localhost):8\\d{3}$",
+				"flags": "i"
+			},
+			"forbidden": null
+		}
 	},
 	"database": {
 		"uri": "mongodb+srv://admin:admin@devcluster-g4uwh.mongodb.net/test?retryWrites=true&w=majority",

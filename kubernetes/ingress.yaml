@@ -1,0 +1,19 @@
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+spec:
+  rules:
+  - host: auth-server.k8s
+    http:
+      paths:
+      - backend:
+          serviceName: auth-server
+          servicePort: 8000
+  - host: profile-server.k8s
+    http:
+      paths:
+      - backend:
+          serviceName: profile-server
+          servicePort: 8001

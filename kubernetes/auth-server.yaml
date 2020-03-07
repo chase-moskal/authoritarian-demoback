@@ -4,14 +4,14 @@ kind: Deployment
 metadata:
   name: auth-server
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: demoback
+      app: auth-server
   template:
     metadata:
       labels:
-        app: demoback
+        app: auth-server
     spec:
       containers:
       - image: chasemoskal/auth-server:latest
@@ -27,3 +27,20 @@ spec:
       - name: auth-server-config-volume
         secret:
           secretName: auth-server-config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-server
+spec:
+  type: NodePort
+  selector:
+    app: auth-server
+  ports:
+  - name: auth-server
+    port: 8000
+    targetPort: 8000
+    protocol: TCP
+  
