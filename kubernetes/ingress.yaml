@@ -5,13 +5,13 @@ metadata:
   name: ingress
 spec:
   rules:
-  - host: auth-server.k8s
+  - host: auth-server.demoback.chasemoskal.com
     http:
       paths:
       - backend:
           serviceName: auth-server
           servicePort: 8000
-  - host: profile-server.k8s
+  - host: profile-server.demoback.chasemoskal.com
     http:
       paths:
       - backend:
