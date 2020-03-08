@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: profile
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: profile
@@ -14,7 +14,7 @@ spec:
         app: profile
     spec:
       containers:
-      - image: chasemoskal/profile-server:latest
+      - image: chasemoskal/profile-server:v0.0.0-dev.6
         imagePullPolicy: IfNotPresent
         name: profile
         ports:

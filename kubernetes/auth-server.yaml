@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: auth
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: auth
@@ -14,7 +14,7 @@ spec:
         app: auth
     spec:
       containers:
-      - image: chasemoskal/auth-server:latest
+      - image: chasemoskal/auth-server:v0.0.0-dev.11
         imagePullPolicy: IfNotPresent
         name: auth
         ports:
