@@ -1,0 +1,10 @@
+
+microservices:
+  auth:
+    image: chasemoskal/auth-server:v0.0.0-dev.11
+    domain: auth.workback.chasemoskal.com
+    replicas: 1
+  profile:
+    image: chasemoskal/profile-server:v0.0.0-dev.6
+    domain: profile.workback.chasemoskal.com
+    replicas: 1

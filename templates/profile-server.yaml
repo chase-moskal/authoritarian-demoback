@@ -2,9 +2,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: profile
+  name: {{ include "workback.fullname" . }}-profile
 spec:
-  replicas: 1
+  replicas: {{ .Values.microservices.profile.replicas }}
   selector:
     matchLabels:
       app: profile
@@ -14,7 +14,7 @@ spec:
         app: profile
     spec:
       containers:
-      - image: chasemoskal/profile-server:v0.0.0-dev.6
+      - image: {{ .Values.microservices.profile.image }}
         imagePullPolicy: IfNotPresent
         name: profile
         ports:
@@ -26,7 +26,7 @@ spec:
       volumes:
       - name: profile-config-volume
         secret:
-          secretName: profile-config
+          secretName: {{ include "workback.fullname" . }}-profile-config
 
 ---
 
@@ -42,3 +42,13 @@ spec:
     protocol: TCP
     port: 8001
     targetPort: 8001
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "workback.fullname" . }}-profile-config
+type: Opaque
+data:
+{{ (.Files.Glob "config/profile/*").AsSecrets | indent 2 }}

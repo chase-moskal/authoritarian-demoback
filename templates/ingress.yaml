@@ -2,16 +2,18 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: ingress
+  name: {{ include "workback.fullname" . }}-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: auth.workback.chasemoskal.com
+  - host: {{ .Values.microservices.auth.domain }}
     http:
       paths:
       - backend:
           serviceName: auth
           servicePort: 8000
-  - host: profile.workback.chasemoskal.com
+  - host: {{ .Values.microservices.profile.domain }}
     http:
       paths:
       - backend:

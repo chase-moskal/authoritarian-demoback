@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-kubectl delete secret/auth-config
-kubectl delete secret/profile-config
-
-kubectl delete -f kubernetes

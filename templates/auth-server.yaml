@@ -2,9 +2,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth
+  name: {{ include "workback.fullname" . }}-auth
 spec:
-  replicas: 1
+  replicas: {{ .Values.microservices.auth.replicas }}
   selector:
     matchLabels:
       app: auth
@@ -14,7 +14,7 @@ spec:
         app: auth
     spec:
       containers:
-      - image: chasemoskal/auth-server:v0.0.0-dev.11
+      - image: {{ .Values.microservices.auth.image }}
         imagePullPolicy: IfNotPresent
         name: auth
         ports:
@@ -26,7 +26,7 @@ spec:
       volumes:
       - name: auth-config-volume
         secret:
-          secretName: auth-config
+          secretName: {{ include "workback.fullname" . }}-auth-config
 
 ---
 
@@ -42,3 +42,13 @@ spec:
     protocol: TCP
     port: 8000
     targetPort: 8000
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "workback.fullname" . }}-auth-config
+type: Opaque
+data:
+{{ (.Files.Glob "config/auth/*").AsSecrets | indent 2 }}

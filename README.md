@@ -1,5 +1,5 @@
 
-# authoritarian demo app
+# chase's workshop backend demo
 
 - kubernetes yaml definitions describe how microservices fit together to form the app backend
 - dev config is committed
