@@ -4,8 +4,18 @@ kind: Ingress
 metadata:
   name: {{ include "workback.fullname" . }}-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
+    cert-manager.io/issuer: issuer
+    kubernetes.io/ingress.class: {{ .Values.ingress.class }}
 spec:
+  {{ if .Values.ingress.tls }}
+  tls:
+  - hosts:
+    - {{ .Values.ingress.domain }}
+    - "*.{{ .Values.ingress.domain }}"
+    - {{ .Values.microservices.auth.domain }}
+    - {{ .Values.microservices.profile.domain }}
+    secretName: tls-secret
+  {{ end }}
   rules:
   - host: {{ .Values.microservices.auth.domain }}
     http:
@@ -19,3 +29,27 @@ spec:
       - backend:
           serviceName: profile
           servicePort: 8001
+
+{{ if .Values.ingress.tls }}
+---
+
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: issuer
+spec:
+  acme:
+    email: {{ .Values.ingress.tls.email }}
+    {{ if .Values.ingress.tls.production }}
+    server: https://acme-v02.api.letsencrypt.org/directory
+    {{ else }}
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    {{ end }}
+    privateKeySecretRef:
+      name: tls-secret
+    solvers:
+    - http01:
+        ingress:
+          class: {{ .Values.ingress.class }}
+
+{{ end }}

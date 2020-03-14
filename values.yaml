@@ -1,4 +1,11 @@
 
+ingress:
+  class: nginx
+  domain: workback.chasemoskal.com
+  tls:
+    production: false
+    email: chasemoskal@gmail.com
+
 microservices:
   auth:
     image: chasemoskal/auth-server:v0.0.0-dev.11
