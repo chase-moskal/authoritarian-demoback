@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: {{ include "workback.fullname" . }}-ingress
   annotations:
-    cert-manager.io/issuer: issuer
+    cert-manager.io/cluster-issuer: issuer
     kubernetes.io/ingress.class: {{ .Values.ingress.class }}
 spec:
   {{ if .Values.ingress.tls }}

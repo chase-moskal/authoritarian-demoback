@@ -69,7 +69,3 @@ instructions
 	- install acme cert-manager into cluster
 3. deploy app to cluster
 	- using helm install
-
-## next topics to integrate into above tutorials
-
-- github actions for continuous delivery
