@@ -8,10 +8,10 @@ ingress:
 
 microservices:
   auth:
-    image: chasemoskal/auth-server:v0.0.0-dev.13
+    image: chasemoskal/auth-server:v0.0.0-dev.14
     domain: auth.workback.chasemoskal.com
     replicas: 2
   profile:
-    image: chasemoskal/profile-server:v0.0.0-dev.8
+    image: chasemoskal/profile-server:v0.0.0-dev.9
     domain: profile.workback.chasemoskal.com
     replicas: 2
