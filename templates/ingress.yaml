@@ -11,10 +11,13 @@ spec:
   tls:
   - hosts:
     - {{ .Values.ingress.domain }}
-    - "*.{{ .Values.ingress.domain }}"
     - {{ .Values.microservices.auth.domain }}
     - {{ .Values.microservices.profile.domain }}
-    secretName: tls-secret
+    {{ if .Values.ingress.tls.production }}
+    secretName: tls-secret-production
+    {{ else }}
+    secretName: tls-secret-staging
+    {{ end }}
   {{ end }}
   rules:
   - host: {{ .Values.microservices.auth.domain }}
@@ -46,9 +49,14 @@ spec:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     {{ end }}
     privateKeySecretRef:
-      name: tls-secret
+      {{ if .Values.ingress.tls.production }}
+      name: tls-secret-production
+      {{ else }}
+      name: tls-secret-staging
+      {{ end }}
     solvers:
-    - http01:
+    - selector: {}
+      http01:
         ingress:
           class: {{ .Values.ingress.class }}
 

@@ -3,7 +3,7 @@ ingress:
   class: nginx
   domain: workback.chasemoskal.com
   tls:
-    production: false
+    production: true
     email: chasemoskal@gmail.com
 
 microservices:
