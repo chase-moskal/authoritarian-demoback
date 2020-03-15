@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: profile
+      annotations:
+        checksum: {{ include (print $.Template.BasePath "/profile-config.yaml") . | sha256sum }}
     spec:
       containers:
       - image: {{ .Values.microservices.profile.image }}

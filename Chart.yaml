@@ -3,5 +3,4 @@ apiVersion: v2
 name: workback
 description: Chase's demo application
 type: application
-version: 0.0.0
-appVersion: 0.0.0
+version: 0.0.0-dev.0

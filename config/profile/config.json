@@ -3,7 +3,7 @@
 		"port": 8001,
 		"cors": {
 			"allowed": {
-				"pattern": "^(.*)\\.?chasemoskal\\.com(|:8\\d{1,3})$",
+				"pattern": "^https?://(.*)chasemoskal.com(|:8\\d{3})$",
 				"flags": "i"
 			},
 			"forbidden": null

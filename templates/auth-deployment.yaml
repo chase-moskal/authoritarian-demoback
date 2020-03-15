@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: auth
+      annotations:
+        checksum: {{ include (print $.Template.BasePath "/auth-config.yaml") . | sha256sum }}
     spec:
       containers:
       - image: {{ .Values.microservices.auth.image }}
@@ -27,28 +29,3 @@ spec:
       - name: auth-config-volume
         secret:
           secretName: {{ include "workback.fullname" . }}-auth-config
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: auth
-spec:
-  selector:
-    app: auth
-  ports:
-  - name: auth
-    protocol: TCP
-    port: 8000
-    targetPort: 8000
-
----
-
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "workback.fullname" . }}-auth-config
-type: Opaque
-data:
-{{ (.Files.Glob "config/auth/*").AsSecrets | indent 2 }}
